@@ -1,4 +1,12 @@
+"use client"; // This is a client component because it uses useState and interacts with the user
+// Why use client? Because we have a date picker that needs to manage state and respond to user interactions. The rest of the page is mostly static content, but the date picker is dynamic and requires client-side rendering.
+
+import { useState } from "react";
+import DatePicker from "@/components/DatePicker";
+
 export default function Home() {
+  const [date, setDate] = useState("");
+
   return (
     <main className="min-h-screen bg-[var(--navy)] text-white">
       {/* Navbar */}
@@ -62,15 +70,7 @@ export default function Home() {
                 className="bg-transparent text-white placeholder-white/30 border-b border-white/20 pb-2 focus:outline-none focus:border-[var(--gold)] transition-colors"
               />
             </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-white/40 text-xs uppercase tracking-wider">
-                Date
-              </label>
-              <input
-                type="date"
-                className="bg-transparent text-white/60 border-b border-white/20 pb-2 focus:outline-none focus:border-[var(--gold)] transition-colors"
-              />
-            </div>
+            <DatePicker label="Date" value={date} onChange={setDate} />
             <button className="bg-[var(--gold)] text-[var(--navy)] font-bold py-3 px-6 rounded-xl hover:bg-[var(--gold-light)] transition-colors mt-4 md:mt-auto">
               Search Flights
             </button>
