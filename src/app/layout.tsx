@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({ subsets: ["latin"] }); // Geist is a font family from Google Fonts
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Air Vimanam — Experience our culture in the sky",
@@ -17,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="geist.className">{children}</body>
+      <body className={outfit.className}>{children}</body>
     </html>
   );
 }

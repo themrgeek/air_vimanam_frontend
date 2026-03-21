@@ -1,10 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  --gold: #c9a84c;
-  --gold-light: #e8c97a;
-  --navy: #0a1628;
-  --navy-mid: #112240;
-  --navy-light: #1e3a5f;
-  --cream: #fdf6e3;
+  --gold: #e6a817;
+  --gold-light: #ffd866;
+  --gold-glow: #fef3c7;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f7f5;
+  --bg-tertiary: #f0efe9;
+  --border: #e5e2d9;
+  --border-light: #f0efe9;
+  --text-primary: #2d2d2d;
+  --text-secondary: #6b6b6b;
+  --text-muted: #9c9c9c;
+  --shadow-warm: 0 4px 24px rgba(230, 168, 23, 0.08);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Responsive utility classes via media queries */
+@layer utilities {
+  .hide-mobile {
+    @media (max-width: 639px) {
+      display: none !important;
+    }
+  }
+
+  .show-mobile-only {
+    display: none !important;
+    @media (max-width: 639px) {
+      display: flex !important;
+    }
+  }
+
+  .bottom-sheet {
+    @media (max-width: 639px) {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      top: auto !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      border-radius: 1.25rem 1.25rem 0 0 !important;
+      z-index: 50 !important;
+      animation: slide-up 0.3s ease-out;
+    }
+  }
+
+  .calendar-dropdown {
+    @media (min-width: 640px) {
+      position: absolute !important;
+      top: 3.5rem !important;
+      left: 0 !important;
+      width: 22rem !important;
+    }
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

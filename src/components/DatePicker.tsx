@@ -38,8 +38,7 @@ export default function DatePicker({
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
 
-  // First day of month & total days
-  const firstDay = new Date(year, month, 1).getDay(); // This fun
+  const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   const prevMonth = () => setViewDate(new Date(year, month - 1, 1));
@@ -81,7 +80,7 @@ export default function DatePicker({
 
   return (
     <div className="flex flex-col gap-1 relative">
-      <label className="text-white/40 text-xs uppercase tracking-wider">
+      <label className="text-[var(--text-muted)] text-xs uppercase tracking-wider font-medium">
         {label}
       </label>
 
@@ -89,12 +88,18 @@ export default function DatePicker({
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="bg-transparent text-left border-b border-white/20 pb-2 focus:outline-none focus:border-[var(--gold)] transition-colors flex items-center justify-between"
+        className="bg-transparent text-left border-b border-[var(--border)] pb-2 focus:outline-none focus:border-[var(--gold)] transition-colors flex items-center justify-between"
       >
-        <span className={displayValue ? "text-white" : "text-white/30"}>
+        <span
+          className={
+            displayValue
+              ? "text-[var(--text-primary)]"
+              : "text-[var(--text-muted)]"
+          }
+        >
           {displayValue ?? "Select date"}
         </span>
-        {/* Plane icon using pure CSS/SVG */}
+        {/* Calendar icon */}
         <svg
           width="16"
           height="16"
@@ -102,40 +107,54 @@ export default function DatePicker({
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
-          className="text-[var(--gold)] opacity-70"
+          className="text-[var(--gold)] opacity-80"
         >
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z" />
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
         </svg>
       </button>
 
-      {/* Calendar Dropdown */}
+      {/* Calendar Dropdown / Bottom Sheet */}
       {open && (
-        <div className="absolute top-14 left-0 z-50 w-72 bg-[var(--navy-mid)] border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+        <div
+          className="
+            bottom-sheet calendar-dropdown
+            bg-white border border-[var(--border)]
+            rounded-2xl shadow-xl overflow-hidden z-50
+          "
+        >
+          {/* Mobile handle bar */}
+          <div className="sm:hidden flex justify-center pt-3 pb-1">
+            <div className="w-10 h-1 rounded-full bg-[var(--border)]" />
+          </div>
+
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+          <div className="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 border-b border-[var(--border-light)]">
             <button
               onClick={prevMonth}
-              className="text-white/40 hover:text-[var(--gold)] transition-colors text-lg"
+              className="text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors text-lg w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-[var(--gold-glow)]"
             >
               ‹
             </button>
-            <span className="text-white font-semibold tracking-wide">
+            <span className="text-[var(--text-primary)] font-semibold tracking-wide text-sm sm:text-base">
               {MONTHS[month]} {year}
             </span>
             <button
               onClick={nextMonth}
-              className="text-white/40 hover:text-[var(--gold)] transition-colors text-lg"
+              className="text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors text-lg w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-[var(--gold-glow)]"
             >
               ›
             </button>
           </div>
 
           {/* Day headers */}
-          <div className="grid grid-cols-7 px-3 pt-3">
+          <div className="grid grid-cols-7 px-3 sm:px-3 pt-3">
             {DAYS.map((d) => (
               <div
                 key={d}
-                className="text-center text-white/30 text-xs font-medium py-1"
+                className="text-center text-[var(--text-muted)] text-xs font-medium py-1"
               >
                 {d}
               </div>
@@ -162,11 +181,11 @@ export default function DatePicker({
                   onClick={() => !past && selectDay(day)}
                   disabled={past}
                   className={`
-                    relative w-9 h-9 mx-auto rounded-full text-sm transition-all flex items-center justify-center
-                    ${past ? "text-white/15 cursor-not-allowed" : "cursor-pointer hover:bg-white/10"}
-                    ${sel ? "bg-[var(--gold)] text-[var(--navy)] font-bold" : ""}
+                    relative w-10 h-10 sm:w-9 sm:h-9 mx-auto rounded-full text-sm transition-all flex items-center justify-center
+                    ${past ? "text-gray-300 cursor-not-allowed" : "cursor-pointer hover:bg-[var(--gold-glow)]"}
+                    ${sel ? "bg-[var(--gold)] text-white font-bold shadow-sm" : ""}
                     ${tod && !sel ? "text-[var(--gold)] font-semibold" : ""}
-                    ${!sel && !tod && !past ? "text-white/80" : ""}
+                    ${!sel && !tod && !past ? "text-[var(--text-primary)]" : ""}
                   `}
                 >
                   {day}
@@ -180,8 +199,8 @@ export default function DatePicker({
           </div>
 
           {/* Footer */}
-          <div className="border-t border-white/10 px-5 py-3 flex justify-between items-center">
-            <span className="text-white/30 text-xs">
+          <div className="border-t border-[var(--border-light)] px-4 sm:px-5 py-3 flex justify-between items-center">
+            <span className="text-[var(--text-muted)] text-xs">
               ✈ Prices may vary by date
             </span>
             <button
@@ -189,7 +208,7 @@ export default function DatePicker({
                 onChange("");
                 setOpen(false);
               }}
-              className="text-white/40 text-xs hover:text-white transition-colors"
+              className="text-[var(--text-muted)] text-xs hover:text-[var(--gold)] transition-colors font-medium"
             >
               Clear
             </button>
@@ -199,7 +218,10 @@ export default function DatePicker({
 
       {/* Backdrop to close */}
       {open && (
-        <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+        <div
+          className="fixed inset-0 z-40 bg-black/20 sm:bg-transparent"
+          onClick={() => setOpen(false)}
+        />
       )}
     </div>
   );
