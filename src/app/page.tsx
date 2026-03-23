@@ -34,9 +34,9 @@ export default function Home() {
           >
             My Bookings
           </a>
-          <button className="bg-[var(--gold)] text-white px-5 py-2 rounded-full font-semibold hover:bg-[var(--gold-light)] hover:text-[var(--text-primary)] transition-all shadow-sm">
+          <a href="/signin" className="bg-[var(--gold)] text-white px-5 py-2 rounded-full font-semibold hover:bg-[var(--gold-light)] hover:text-[var(--text-primary)] transition-all shadow-sm inline-block">
             Sign In
-          </button>
+          </a>
         </div>
 
         {/* Mobile hamburger button */}
@@ -94,7 +94,7 @@ export default function Home() {
         </p>
 
         {/* Search Card */}
-        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl sm:rounded-3xl p-5 sm:p-6 w-full max-w-3xl shadow-[var(--shadow-warm)]">
+        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl sm:rounded-3xl p-5 sm:p-6 w-full max-w-3xl shadow-[var(--shadow-warm)] overflow-visible">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="flex flex-col gap-1">
               <label className="text-[var(--text-muted)] text-xs uppercase tracking-wider font-medium">

@@ -58,7 +58,7 @@ body {
   .calendar-dropdown {
     @media (min-width: 640px) {
       position: absolute !important;
-      top: 3.5rem !important;
+      top: calc(100% + 0.5rem) !important;
       left: 0 !important;
       width: 22rem !important;
     }
